@@ -50,9 +50,23 @@ router.get( '/', ( request, response ) => {
     }
 */
 // POST - http://localhost:<PORT>/api/v1/tasks
-router.post( '/' , ( request, response ) => {
-    users = [ ...users, request.body ];
-    response.status( 201 ).send( { users: users } );
+router.post( '/register' , ( request, response ) => {
+
+    const email = request.body.email;
+    console.log(email);
+    const foundUser = users.find( user => user.email.toLowerCase() === email.toLowerCase() );
+    if( !foundUser ){
+        response.send( users.filter( user => user.email.toLowerCase() !== email.toLowerCase()));
+        users = [ ...users, request.body ];
+        response.status( 201 ).send( { users: users } );
+    }else{
+        response.status(404);
+        response.send({ error: `Email address is already taken`})
+    }
+
+
+    // users = [ ...users, request.body ];
+    // response.status( 201 ).send( { users: users } );
 });
 
 // PUT - http://localhost:<PORT>/api/v1/tasks/:<id>

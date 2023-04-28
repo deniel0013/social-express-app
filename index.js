@@ -9,13 +9,13 @@ server.use( cors() );
 
 // Routes
 const socialBaseUrl = '/api/v1/social';
-const TaskRoutes = require('./routes/SocialRoutes');
+const SocialRoutes = require('./routes/SocialRoutes');
 
 server.get('/', ( request, response ) => {
     response.send({ message: `Express Server for Social Express App`})
 });
 
-server.use( socialBaseUrl , TaskRoutes );
+server.use( socialBaseUrl , SocialRoutes );
 
 server.listen( PORT, () => {
     console.log(`Server actively running on port ${PORT}`);
